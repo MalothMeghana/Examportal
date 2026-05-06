@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* Enable class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Z-Index Layer System */
+:root {
+  /* Define z-index layers for consistent stacking */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-sidebar: 40;
+  --z-navbar: 50;
+  --z-sidebar-mobile: 60;
+  --z-modal-backdrop: 100;
+  --z-modal: 200;
+  --z-notification: 999;
+  --z-tooltip: 1000;
+}
+
+/* Ensure proper positioning for layouts */
+.layout-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Navbar fixed positioning */
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-navbar);
+}
+
+/* Sidebar positioning */
+.sidebar-desktop {
+  position: relative;
+  z-index: var(--z-sidebar);
+}
+
+.sidebar-mobile {
+  position: fixed;
+  z-index: var(--z-sidebar-mobile);
+}
+
+/* Content area with proper margin */
+.main-content {
+  margin-top: 0;
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.main-content.with-fixed-navbar {
+  margin-top: 4rem; /* Height of fixed navbar */
+  padding-top: 1rem;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal-backdrop);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal content */
+.modal-content {
+  position: relative;
+  z-index: var(--z-modal);
+}
+
+/* Dropdown menus */
+.dropdown-menu {
+  position: absolute;
+  z-index: var(--z-dropdown);
+}
+
+/* Notification dropdown */
+.notification-dropdown {
+  position: absolute;
+  z-index: var(--z-notification);
+}
+
+/* Ensure subscription header doesn't overlap navbar */
+.subscription-header {
+  position: relative;
+  z-index: var(--z-base);
+  margin-top: 0;
+}
+
+/* Prevent text selection on UI elements */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+/* Hide scrollbar utility */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Smooth transitions for layout changes */
+.layout-transition {
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+}

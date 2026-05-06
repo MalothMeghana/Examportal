@@ -1,0 +1,8 @@
+# Dependencies will be installed fresh inside the container.
+node_modules
+
+# Secrets should be handled by Google Cloud's Secret Manager, not stored in the image.
+.env
+
+# This ignores any debug logs that npm might create.
+npm-debug.log
