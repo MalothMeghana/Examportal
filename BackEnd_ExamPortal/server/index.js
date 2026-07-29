@@ -20,7 +20,9 @@ const allowedOrigins = [
   'http://localhost:5174',                         // Alternative port if 5173 is in use
   'http://192.168.56.1:5174',                      // Network access
   'http://192.168.1.6:5174',                       // Network access
-  // 'https://www.your-custom-domain.com'           // **IMPORTANT: Add your custom domain here once you have it**
+  'http://192.168.1.34:5173',                      // Network access
+  // 'https://www.your-custom-domain.com'  
+  // **IMPORTANT: Add your custom domain here once you have it**
 ];
 
 const corsOptions = {
@@ -61,6 +63,15 @@ const server = http.createServer(app);
 initRedis();
 
 initNotificationSocket(server);
+
+server.on("error", (error) => {
+  if (error.code === "EADDRINUSE") {
+    console.error(`Port ${PORT} is already in use. Stop the existing server or set a different PORT in .env.`);
+    process.exit(1);
+  }
+
+  throw error;
+});
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
